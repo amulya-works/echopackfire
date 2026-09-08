@@ -3,7 +3,7 @@
 
 export type ProductFragility = 'Low' | 'Medium' | 'High' | 'Very High';
 export type SurfaceSensitivity = 'Low' | 'Scratch-prone' | 'Abrasion-sensitive' | 'High Polish';
-export type ProductShape = 'Rectangular' | 'Cylindrical' | 'Irregular' | 'Spherical';
+export type ProductShape = 'Rectangular' | 'Cylindrical' | 'Irregular' | 'Spherical' | 'Flat / Bookfold' | 'Ceramic / Vase';
 export type TransportMode = 'Road' | 'Rail' | 'Air' | 'Sea';
 export type BrandStyle = 'Premium' | 'Minimal' | 'Eco-conscious' | 'Standard';
 export type PackagingPurpose = 'E-commerce Shipping' | 'Retail Shelf' | 'Industrial Transit' | 'Gift / Luxury';
@@ -12,6 +12,34 @@ export type PackagingGeometry = 'Standard Rectangular' | 'Form-Fitting Sleeve' |
 export type ProductOrientation = 'Upright Vertical' | 'Horizontal Flat' | 'Side Incline';
 export type DropSurface = 'Concrete' | 'Wood' | 'Carpet';
 export type DropOrientation = 'Corner' | 'Edge' | 'Flat Face';
+
+export type CushioningMaterialType =
+  | 'thermocol'
+  | 'paper_strips'
+  | 'molded_pulp'
+  | 'mycelium'
+  | 'honeycomb_wrap'
+  | 'air_pillows'
+  | 'cornstarch_peanuts'
+  | 'epe_foam'
+  | 'corrugated_inserts'
+  | 'wool_felt';
+
+export interface CushioningMaterial {
+  id: string;
+  name: string;
+  category: 'Fiber & Pulp' | 'Foam & Polymer' | 'Paper & Void-Fill' | 'Bio-based';
+  type: CushioningMaterialType;
+  density_g_cm3: number;
+  cost_per_kg: number;
+  carbon_factor_kg_co2e_per_kg: number;
+  shock_absorption_coef: number; // 0.1 - 1.0
+  recyclability_pct: number;
+  biodegradable: boolean;
+  color_hex: string;
+  description: string;
+  best_for: string[];
+}
 
 export interface User {
   id: string;
@@ -23,7 +51,7 @@ export interface User {
 export interface Material {
   id: string;
   name: string;
-  category: 'Paper & Board' | 'Fiber & Pulp' | 'Polymer' | 'Bio-based' | 'Composite' | 'Metal & Glass';
+  category: 'Paper & Board' | 'Fiber & Pulp' | 'Polymer' | 'Bio-based' | 'Composite' | 'Metal & Glass' | 'Cushioning & Pulp';
   density_g_cm3: number;
   cost_per_kg: number; // in ₹ or base currency
   carbon_factor_kg_co2e_per_kg: number;
@@ -39,6 +67,7 @@ export interface Material {
   description: string;
   color_hex: string;
   texture_type: 'corrugated' | 'smooth_pulp' | 'kraft' | 'polymer' | 'matte' | 'metallic' | 'glass';
+  is_inner_cushioning?: boolean;
 }
 
 export interface Product {
@@ -128,8 +157,11 @@ export interface DropTestResult {
   structural_status: 'PASS' | 'BORDERLINE' | 'FAIL';
   impact_velocity_ms: number;
   peak_deceleration_g: number;
+  peak_g?: number; // convenience alias
   energy_absorbed_j: number;
   impact_severity: 'Low' | 'Moderate' | 'Severe' | 'Critical';
+  cushioning_material_name?: string;
+  cushioning_absorbed_pct?: number;
   disclaimer: string;
 }
 
@@ -178,6 +210,10 @@ export interface PackagingDesign {
   packaging_type: PackagingType;
   material_id: string;
   material_name: string;
+  cushioning_material_id?: string;
+  cushioning_material_name?: string;
+  cushioning_material_type?: CushioningMaterialType;
+  cushioning_color_hex?: string;
   length_mm: number;
   width_mm: number;
   height_mm: number;

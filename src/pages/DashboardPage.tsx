@@ -17,8 +17,6 @@ import {
   ExternalLink,
   Truck,
   ArrowRightLeft,
-  FileCheck2,
-  Factory,
   TrendingUp,
   Calculator,
   FileText,
@@ -215,28 +213,28 @@ export const DashboardPage: React.FC = () => {
           </button>
 
           <button
-            onClick={() => navigate('/compliance')}
+            onClick={() => navigate('/savings')}
             className="p-4 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-xs transition-all text-left group cursor-pointer space-y-2"
           >
-            <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center group-hover:bg-rose-600 group-hover:text-white transition-colors">
-              <FileCheck2 className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+              <TrendingUp className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-slate-900">Compliance Center</h4>
-              <p className="text-[11px] text-slate-500 mt-0.5">PPWR, FTC & PWM regulations</p>
+              <h4 className="text-xs font-bold text-slate-900">Savings & Impact</h4>
+              <p className="text-[11px] text-slate-500 mt-0.5">Financial ROI & ESG metrics</p>
             </div>
           </button>
 
           <button
-            onClick={() => navigate('/suppliers')}
+            onClick={() => navigate('/reports')}
             className="p-4 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-xs transition-all text-left group cursor-pointer space-y-2"
           >
             <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-              <Factory className="w-4 h-4" />
+              <FileText className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-slate-900">Supplier Engine</h4>
-              <p className="text-[11px] text-slate-500 mt-0.5">Converters, MOQs & RFQ quotes</p>
+              <h4 className="text-xs font-bold text-slate-900">Reports & Export</h4>
+              <p className="text-[11px] text-slate-500 mt-0.5">16-section audit brief & PDF</p>
             </div>
           </button>
         </div>

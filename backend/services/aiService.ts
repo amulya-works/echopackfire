@@ -129,7 +129,7 @@ Active Design: ${activeDesign?.name} (Cost: ₹${activeDesign?.estimated_cost.to
     actions = ['Apply to 3D Studio', 'Simulate in What-If Engine'];
   } else if (lowerQuery.includes('reduce cost') || lowerQuery.includes('cut cost')) {
     answer = `To reduce packaging cost from ₹${activeDesign?.estimated_cost.toFixed(2) || '17.80'}: 1) Right-size internal clearance from 3mm to 1.5mm to save 8% in gross board area (saving ₹1.10/unit). 2) Consolidate annual order quantities to 50k+ units for supplier tooling amortization discounts. 3) Switch to Recycled Corrugated Board (${lowestCostDesign?.name}, ₹${lowestCostDesign?.estimated_cost.toFixed(2)}/unit).`;
-    actions = ['Optimize Dimensions in Studio', 'Check Supplier Engine MOQs'];
+    actions = ['Optimize Dimensions in Studio', 'Review Savings & Impact'];
   } else if (lowerQuery.includes('improve protection') || lowerQuery.includes('increase protection')) {
     answer = `To boost Protection Score from ${activeDesign?.protection_score || 88}/100 to 95+: 1) Increase perimeter cushioning buffer by +4mm (attenuates peak deceleration by ~14G). 2) Switch to a form-fitting molded pulp cradle or dual-chamber geometry. 3) The highest-protection design in your project is "${highestProtectionDesign?.name}" with ${highestProtectionDesign?.protection_score}/100 protection.`;
     actions = ['Switch to Maximum Protection', 'Run Virtual Drop Test'];

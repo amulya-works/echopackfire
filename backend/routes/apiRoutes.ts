@@ -382,23 +382,24 @@ apiRouter.post('/optimization/run', (req: Request, res: Response) => {
     designs = project?.designs || [];
   }
 
-  const defaultWeights: ScenarioWeights = weights || {
-    sustainability: 20,
-    protection: 30,
-    cost: 20,
-    logistics: 15,
-    material_efficiency: 15,
+  const mappedWeights: ScenarioWeights = {
+    sustainability: Number(weights?.sustainability ?? (Math.round((Number(weights?.carbon ?? 20) + Number(weights?.recyclability ?? 10)) / 1.5))),
+    protection: Number(weights?.protection ?? 25),
+    cost: Number(weights?.cost ?? 20),
+    logistics: Number(weights?.logistics ?? weights?.volume_efficiency ?? 15),
+    brand: Number(weights?.brand ?? 10),
+    material_efficiency: Number(weights?.material_efficiency ?? 15),
   };
   const defaultConstraints: ScenarioConstraints = constraints || {
     transport_distance_km: 500,
-    budget: 20,
-    carbon_target: 1.0,
-    min_protection: 90,
-    min_recyclability: 80,
+    budget: 35,
+    carbon_target: 2.0,
+    min_protection: 70,
+    min_recyclability: 60,
   };
 
   const optimizationMode: OptimizationMode = mode || 'Balanced';
-  const result = runOptimization(designs, defaultWeights, defaultConstraints, optimizationMode);
+  const result = runOptimization(designs, mappedWeights, defaultConstraints, optimizationMode);
   res.json(result);
 });
 

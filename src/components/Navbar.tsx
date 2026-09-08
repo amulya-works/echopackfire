@@ -5,8 +5,6 @@ import {
   Box,
   Sliders,
   ShieldCheck,
-  FileCheck2,
-  Factory,
   BarChart3,
   TrendingUp,
   FileText,
@@ -40,8 +38,6 @@ export const Navbar: React.FC = () => {
   ];
 
   const secondaryNavItems = [
-    { name: 'Compliance Center', path: '/compliance', icon: FileCheck2 },
-    { name: 'Supplier Engine', path: '/suppliers', icon: Factory },
     { name: 'Global Benchmarking', path: '/benchmarks', icon: BarChart3 },
     { name: 'Savings & Impact', path: '/savings', icon: TrendingUp },
     { name: 'Reports & Export', path: '/reports', icon: FileText },

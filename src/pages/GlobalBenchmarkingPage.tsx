@@ -13,10 +13,20 @@ import {
   Layers,
 } from 'lucide-react';
 import { useProject } from '../context/ProjectContext.js';
+import { getGlobalBenchmarks } from '../../backend/data/benchmarks.js';
 
 export const GlobalBenchmarkingPage: React.FC = () => {
   const { activeProject, activeDesign } = useProject();
-  const [benchmarks, setBenchmarks] = useState<GlobalBenchmark[]>([]);
+  const [benchmarks, setBenchmarks] = useState<GlobalBenchmark[]>(() => {
+    return getGlobalBenchmarks({
+      cost: activeDesign?.estimated_cost || 17.80,
+      carbon: activeDesign?.carbon_footprint || 0.68,
+      protection: activeDesign?.protection_score || 94,
+      weight_g: activeDesign?.weight_g || 195,
+      volume_l: activeDesign ? (activeDesign.length_mm * activeDesign.width_mm * activeDesign.height_mm) / 1000000 : 1.85,
+      material_efficiency: activeDesign?.material_efficiency_score || 86,
+    });
+  });
 
   useEffect(() => {
     const cost = activeDesign?.estimated_cost || 17.80;
@@ -29,9 +39,12 @@ export const GlobalBenchmarkingPage: React.FC = () => {
     fetch(`/api/benchmarks?cost=${cost}&carbon=${carbon}&protection=${protection}&weight=${weight}&volume=${volume.toFixed(2)}&matEff=${matEff}`)
       .then(res => res.json())
       .then(data => {
-        if (data.benchmarks) setBenchmarks(data.benchmarks);
+        if (data.benchmarks && data.benchmarks.length > 0) setBenchmarks(data.benchmarks);
       })
-      .catch(err => console.error('Failed to load benchmarks:', err));
+      .catch(err => {
+        console.warn('API benchmark fetch failed, using local baseline calculation:', err);
+        setBenchmarks(getGlobalBenchmarks({ cost, carbon, protection, weight_g: weight, volume_l: volume, material_efficiency: matEff }));
+      });
   }, [activeDesign]);
 
   return (

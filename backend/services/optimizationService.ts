@@ -140,13 +140,26 @@ export function runOptimization(
 
   const summaryExplanation = recommendationDetails.whyThisDesign;
 
+  // Build rankedOptions with scores for UI consumption
+  const rankedOptions = scored
+    .sort((a, b) => b.finalScore - a.finalScore)
+    .map((s, idx) => ({
+      ...s.design,
+      overall_score: s.finalScore,
+      isParetoOptimal: paretoPoints.find(p => p.id === s.design.id)?.isParetoOptimal ?? (idx === 0),
+      rank: idx + 1,
+    }));
+
   return {
     bestSolution,
+    recommendedDesign: bestSolution,
     decisionScore,
     topAlternatives,
     rejectedSolutions: rejected,
     paretoFrontier: paretoPoints,
     summaryExplanation,
+    tradeoffExplanation: summaryExplanation,
     recommendationDetails,
+    rankedOptions,
   };
 }

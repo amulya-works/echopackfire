@@ -15,8 +15,6 @@ import { VirtualTestLabPage } from './pages/VirtualTestLabPage.js';
 import { MaterialIntelligencePage } from './pages/MaterialIntelligencePage.js';
 import { LogisticsCarbonPage } from './pages/LogisticsCarbonPage.js';
 import { PackagingComparisonPage } from './pages/PackagingComparisonPage.js';
-import { ComplianceCenterPage } from './pages/ComplianceCenterPage.js';
-import { SupplierEnginePage } from './pages/SupplierEnginePage.js';
 import { GlobalBenchmarkingPage } from './pages/GlobalBenchmarkingPage.js';
 import { SavingsImpactPage } from './pages/SavingsImpactPage.js';
 import { ReportsExportPage } from './pages/ReportsExportPage.js';
@@ -51,8 +49,6 @@ export default function App() {
               <Route path="/logistics" element={<LogisticsCarbonPage />} />
               <Route path="/comparison" element={<PackagingComparisonPage />} />
               <Route path="/compare" element={<CompareOptimizePage />} />
-              <Route path="/compliance" element={<ComplianceCenterPage />} />
-              <Route path="/suppliers" element={<SupplierEnginePage />} />
               <Route path="/benchmarks" element={<GlobalBenchmarkingPage />} />
               <Route path="/savings" element={<SavingsImpactPage />} />
               <Route path="/reports" element={<ReportsExportPage />} />
